@@ -13,7 +13,7 @@ r = praw.Reddit(usrAgnt)
 r.login(usr,pw)
 
 touchHint = {'.m.':'.','//m.':'//','/.compact':'/','//mobile.':'//','//touch.':'//'} #search terms and translations
-ignoreDomains = ['mlb.com','m.memegen.com','m.braves.mlb.com','m.imgur.com','m.espn.go.com', 'm.mlb.com', 'm.youtube.com', 'm.politico.com'] #these take care of themselves
+ignoreDomains = ['mlb.com','m.memegen.com','m.braves.mlb.com','m.imgur.com','m.espn.go.com', 'm.mlb.com', 'm.youtube.com', 'm.politico.com', 'm.wpbf.com'] #these take care of themselves
 ignoreSubreddits = []
 processedPosts = []
 
