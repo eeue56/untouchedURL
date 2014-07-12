@@ -19,7 +19,7 @@ processedPosts = []
 
 feedbackURL = "[How am I doing?](http://www.reddit.com/message/compose/?to=untouchedURL&amp;subject=untouchedURL%20feedback)" 
 feedbackSubject = u'untouchedURL feedback' 
-
+sourcecodeURL = "[Sourcecode](https://github.com/Kharms/untouchedURL)"
 
 
 def post_comment(post, commentTxt):
@@ -56,7 +56,7 @@ while running:
                     for hint, replacement in touchHint.items():
                         if hint in url:
                             newlink = post.url.replace(hint,replacement)
-                            print post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + feedbackURL))
+                            print post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + feedbackURL + " | "+sourcecodeURL))
 #r.send_message(maker,"test","Here is a non-mobile link: " + newlink + "\n \n" + feedbackURL)
 #post.add_comment("Here is a non-mobile link: " + newlink + "\n \n" + feedbackURL)
                             processedPosts.append(post.id)
