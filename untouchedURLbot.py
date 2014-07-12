@@ -1,7 +1,7 @@
 import praw
 import time
 import datetime
-
+import warnings
 #setup
 
 usrAgnt = 'untouchedURL bot 7.12.2014 checks new posts for mobile links | GITHUB'
@@ -13,7 +13,7 @@ r = praw.Reddit(usrAgnt)
 r.login(usr,pw)
 
 touchHint = {'.m.':'.','//m.':'//','/.compact':'/','//mobile.':'//','//touch.':'//'} #search terms and translations
-ignoreDomains = ['mlb.com','m.memegen.com','m.braves.mlb.com','m.imgur.com','m.espn.go.com', 'm.mlb.com', 'm.youtube.com'] #these take care of themselves
+ignoreDomains = ['mlb.com','m.memegen.com','m.braves.mlb.com','m.imgur.com','m.espn.go.com', 'm.mlb.com', 'm.youtube.com', 'm.politico.com'] #these take care of themselves
 ignoreSubreddits = []
 processedPosts = []
 
@@ -28,7 +28,7 @@ def post_comment(post, commentTxt):
         a = post.add_comment(commentTxt)
         return True
     except Exception as e:
-        warn("Comment Failed: %s @ %s in subreddit %s"%(commentTxt,post.permalink,post.subreddit))
+        warnings.warn("Comment Failed: %s @ %s in subreddit %s"%(commentTxt,post.permalink,post.subreddit))
         if str(e) == '403 Client Error: Forbidden':
             print '/r/'+post.subreddit+' has banned me.'
             ignoreSubreddits.append(post.subreddit)
