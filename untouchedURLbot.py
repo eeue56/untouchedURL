@@ -16,9 +16,9 @@ r.login(usr,pw)
 touchHint = {'.m.':'.','//m.':'//','/.compact':'/','//mobile.':'//','//touch.':'//'} #search terms and translations
 
 ignoreDomains = {'mlb.com','m.memegen.com','m.braves.mlb.com','m.imgur.com','m.espn.go.com', 'm.mlb.com', 'm.youtube.com', 'm.politico.com', 'm.wpbf.com','m.huffpost.com','m.bleacherreport.com','m.btownthings.com','m.bbc.com'} #these take care of themselves/are broken
-processDomains = {'en.m.wikipedia.org'}
+processDomains = {'en.m.wikipedia.org'} #domain whitelist
 ignoreSubreddits = set()
-processedPosts = set()
+processedPosts = set() 
 
 feedbackURL = "[How am I doing?](http://www.reddit.com/message/compose/?to=untouchedURL&amp;subject=untouchedURL%20feedback)" 
 feedbackSubject = u'untouchedURL feedback' 
@@ -91,8 +91,8 @@ while running:
     print "Scanning..."
 #newPosts = r.get_subreddit('todayilearned').get_new(limit=1000)
     for post in newPosts:
-        url = post.url.lower()
         if check_post(post,ignoreDomains,ignoreSubreddits,processedPosts):
+            url = post.url.lower()
             processedPosts.append(post.id)
             if any(hint in url for hint in touchHint):
                 for hint, replacement in touchHint.items():
