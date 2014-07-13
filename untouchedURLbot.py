@@ -63,17 +63,17 @@ def check_domain(newlink,domain,ignoreDomains,processDomains):
         return True
     else:
         try:
-            req = requests.head(newlink)
-            if req.status_code == 404:
+            status = requests.head(newlink).status_code
+            if status == 404:
                 ignoreDomains.add(domain)
                 return False
-            if req.status_code == 400:
+            if status == 400:
                 ignoreDomains.add(domain)
                 return False
-            if (req.status_code > 299) and (req.status_code<400):
-                print "Check 3XX: "+newlink
+            if (status > 299) and (status<400):
+                print "Check%s: "%(status)+newlink
                 return True
-            if req.status_code == 200:
+            if status == 200:
                 processDomains.add(domain)
                 return True
             else:
@@ -103,9 +103,9 @@ while running:
                         newlink = post.url.replace(hint,replacement)
                         if check_domain(newlink,post.domain,ignoreDomains,processDomains):
                             print post.title, ": "
-                            print "   ",post.permalink
-                            print "   ",post.url
-                            print "   ",newlink
+                            print " -:  ",post.permalink
+                            print " -:  ",post.url
+                            print " -:  ",newlink
                             print post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
  
     time.sleep(20)
