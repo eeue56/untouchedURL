@@ -41,8 +41,11 @@ def post_comment(post, commentTxt, ignoreSubreddits):
 
 
 #checks to see if we can skip post
+
 def check_post(post, ignoreDomains, ignoreSubreddits, processedPosts):
     if post.over_18:
+        return False
+    if post.is_self:
         return False
     if post.subreddit in ignoreSubreddits:
         return False
@@ -99,6 +102,10 @@ while running:
                     if hint in url:
                         newlink = post.url.replace(hint,replacement)
                         if check_domain(newlink,post.domain,ignoreDomains,processDomains):
+                            print post.title, ": "
+                            print "   ",post.permalink
+                            print "   ",post.url
+                            print "   ",newlink
                             print post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
  
     time.sleep(20)
