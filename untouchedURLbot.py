@@ -35,7 +35,7 @@ def post_comment(post, commentTxt, ignoreSubreddits):
         warnings.warn("Comment Failed: %s @ %s in subreddit %s"%(commentTxt,post.permalink,post.subreddit))
         if str(e) == '403 Client Error: Forbidden':
             print '/r/'+post.subreddit+' has banned me.'
-            ignoreSubreddits.append(post.subreddit)
+            ignoreSubreddits.add(post.subreddit)
         return False
 
 
@@ -62,16 +62,16 @@ def check_domain(newlink,domain,ignoreDomains,processDomains):
         try:
             req = requests.head(newlink)
             if req.status_code == 404:
-                ignoreDomains.append(domain)
+                ignoreDomains.add(domain)
                 return False
             if req.status_code == 400:
-                ignoreDomains.append(domain)
+                ignoreDomains.add(domain)
                 return False
             if (req.status_code > 299) and (req.status_code<400):
                 print "Check 3XX: "+newlink
                 return True
             if req.status_code == 200:
-                processDomains.append(domain)
+                processDomains.add(domain)
                 return True
             else:
                 return False    
@@ -93,7 +93,7 @@ while running:
     for post in newPosts:
         if check_post(post,ignoreDomains,ignoreSubreddits,processedPosts):
             url = post.url.lower()
-            processedPosts.append(post.id)
+            processedPosts.add(post.id)
             if any(hint in url for hint in touchHint):
                 for hint, replacement in touchHint.items():
                     if hint in url:
