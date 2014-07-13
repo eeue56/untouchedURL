@@ -116,7 +116,7 @@ while running:
         mail = r.get_unread()
         print "processDomains: ", processDomains
         print "ignoreDomains: ", ignoreDomains
-        print "ignoreSubreddits: ", ignoresubreddits
+        print "ignoreSubreddits: ", ignoreSubreddits
         for m in mail:
             if m.subreddit == None:
                 if m.subject == feedbackSubject:
