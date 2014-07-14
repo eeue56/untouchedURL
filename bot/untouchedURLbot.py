@@ -18,7 +18,7 @@ touchHint = {'.m.':'.','//m.':'//','/.compact':'/','//mobile.':'//','//touch.':'
 
 ignoreDomains = {'mlb.com','m.memegen.com','m.braves.mlb.com','m.imgur.com','m.espn.go.com', 'm.mlb.com', 'm.youtube.com', 'm.politico.com', 'm.wpbf.com','m.huffpost.com','m.bleacherreport.com','m.btownthings.com','m.bbc.com'} #these take care of themselves/are broken
 processDomains = {'en.m.wikipedia.org'} #domain whitelist
-ignoreSubreddits = set()
+ignoreSubreddits = set('latterdaysaints')
 processedPosts = set()
 
 feedbackURL = "[How am I doing?](http://www.reddit.com/message/compose/?to=untouchedURL&amp;subject=untouchedURL%20feedback)" 
