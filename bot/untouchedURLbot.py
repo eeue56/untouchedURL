@@ -80,7 +80,7 @@ def check_domain(newlink,domain,ignoreDomains,processDomains):
                 return True
             else:
                 return False    
-        except ConnectionError:
+        except requests.ConnectionError:
             print "failed to connect"
             return False
         
@@ -104,11 +104,12 @@ while running:
                     if hint in url:
                         newlink = post.url.replace(hint,replacement)
                         if check_domain(newlink,post.domain,ignoreDomains,processDomains):
-                            print post.title, ": "
-                            print " -:  ",post.permalink
-                            print " -:  ",post.url
-                            print " -:  ",newlink
-                            print post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
+                            #print post.title, ": "
+                            #print " -:  ",post.permalink
+                            #print " -:  ",post.url
+                            #print " -:  ",newlink
+                            #print 
+                            post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
  
     time.sleep(20)
     runCount += 1
@@ -116,9 +117,9 @@ while running:
         runCount = 0
         processedPosts = set()
         mail = r.get_unread()
-        print "processDomains: ", processDomains
-        print "ignoreDomains: ", ignoreDomains
-        print "ignoreSubreddits: ", ignoreSubreddits
+        #print "processDomains: ", processDomains
+        #print "ignoreDomains: ", ignoreDomains
+        #print "ignoreSubreddits: ", ignoreSubreddits
         for m in mail:
             if m.subreddit == None:
                 if m.subject == feedbackSubject:
