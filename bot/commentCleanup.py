@@ -5,8 +5,7 @@ import time
 
 usrAgnt = 'untouchedURL old comment cleanup. heroku 7.14.2014'
 usr = 'untouchedURL' 
-pw = '' os.environ['botPW'] #password
-maker = os.environ['MAKER'] #reddit account to pass feedback to
+pw = os.environ['botPW'] #password
 
 r = praw.Reddit(usrAgnt) 
 r.login(usr,pw)
@@ -24,4 +23,6 @@ def should_delete(comment):
 
 for comment in comments:
     if should_delete(comment):
+            print "deleting comment."
             comment.delete()
+            
