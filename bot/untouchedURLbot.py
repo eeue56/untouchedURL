@@ -8,7 +8,7 @@ import os
 
 usrAgnt = 'untouchedURL bot 7.13.2014 checks new posts for mobile links | hopefully running on Heroku'
 usr = 'untouchedURL' 
-pw = os.environ['uPW'] #password
+pw = os.environ['botPW'] #password
 maker = os.environ['MAKER'] #reddit account to pass feedback to
 
 r = praw.Reddit(usrAgnt) 
