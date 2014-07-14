@@ -92,7 +92,7 @@ runCount = 0
 #bot:
 while running:
 #newPosts = r.get_new(limit=100)
-    newPosts = r.get_subreddit('all').get_new(limit = 100)
+    newPosts = r.get_subreddit('all').get_new(limit = 1000)
     print "Scanning..."
 #newPosts = r.get_subreddit('todayilearned').get_new(limit=1000)
     for post in newPosts:
@@ -110,9 +110,9 @@ while running:
                             print " -:  ",newlink
                             print post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
  
-    time.sleep(20)
+    time.sleep(120)
     runCount += 1
-    if runCount == 90: 
+    if runCount == 15: 
         runCount = 0
         processedPosts = set()
         mail = r.get_unread()
