@@ -111,7 +111,7 @@ while running:
                             #print 
                             post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
  
-    time.sleep(20)
+    time.sleep(15)
     runCount += 1
     if runCount == 90: 
         runCount = 0
