@@ -18,7 +18,7 @@ touchHint = {'.m.':'.','//m.':'//','/.compact':'/','//mobile.':'//','//touch.':'
 
 ignoreDomains = {'mlb.com','m.memegen.com','m.braves.mlb.com','m.imgur.com','m.espn.go.com', 'm.mlb.com', 'm.youtube.com', 'm.politico.com', 'm.wpbf.com','m.huffpost.com','m.bleacherreport.com','m.btownthings.com','m.bbc.com'} #these take care of themselves/are broken
 processDomains = {'en.m.wikipedia.org'} #domain whitelist
-ignoreSubreddits = set()
+ignoreSubreddits = set('latterdaysaints')
 processedPosts = set()
 
 feedbackURL = "[How am I doing?](http://www.reddit.com/message/compose/?to=untouchedURL&amp;subject=untouchedURL%20feedback)" 
@@ -26,7 +26,7 @@ feedbackSubject = u'untouchedURL feedback'
 sourcecodeURL = "[Sourcecode](https://github.com/Kharms/untouchedURL)"
 
 
-
+#extracomment
 #posts comment.
 def post_comment(post, commentTxt, ignoreSubreddits):
     try:
@@ -92,7 +92,7 @@ runCount = 0
 #bot:
 while running:
 #newPosts = r.get_new(limit=100)
-    newPosts = r.get_subreddit('all').get_new(limit = 1000)
+    newPosts = r.get_subreddit('all').get_new(limit = 100)
     print "Scanning..."
 #newPosts = r.get_subreddit('todayilearned').get_new(limit=1000)
     for post in newPosts:
@@ -110,9 +110,9 @@ while running:
                             print " -:  ",newlink
                             print post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
  
-    time.sleep(120)
+    time.sleep(20)
     runCount += 1
-    if runCount == 15: 
+    if runCount == 90: 
         runCount = 0
         processedPosts = set()
         mail = r.get_unread()
