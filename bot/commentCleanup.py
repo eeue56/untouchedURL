@@ -25,4 +25,3 @@ def should_delete(comment):
 for comment in comments:
     if should_delete(comment):
             comment.delete()
-            
