@@ -3,12 +3,13 @@ import time
 import datetime
 import warnings
 import requests
+import os
 #setup
 
 usrAgnt = 'untouchedURL bot 7.13.2014 checks new posts for mobile links | hopefully running on Heroku'
 usr = 'untouchedURL' 
-pw = '' #password
-maker = '' #reddit account to pass feedback to
+pw = os.environ['uPW'] #password
+maker = os.environ['MAKER'] #reddit account to pass feedback to
 
 r = praw.Reddit(usrAgnt) 
 r.login(usr,pw)
