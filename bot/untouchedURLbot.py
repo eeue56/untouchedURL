@@ -123,7 +123,7 @@ while running:
         for m in mail:
             if m.subreddit == None:
                 if m.subject == feedbackSubject:
-                    m.mark_as_unread()
+                    m.mark_as_read()
                     r.send_message(maker,m.subject,m.body)      
                     
                     
