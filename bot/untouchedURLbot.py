@@ -18,7 +18,7 @@ touchHint = {'.m.':'.','//m.':'//','/.compact':'/','//mobile.':'//','//touch.':'
 
 ignoreDomains = {'mlb.com','m.memegen.com','m.braves.mlb.com','m.imgur.com','m.espn.go.com', 'm.mlb.com', 'm.youtube.com', 'm.politico.com', 'm.wpbf.com','m.huffpost.com','m.bleacherreport.com','m.btownthings.com','m.bbc.com', 'mobile.gungho.jp'} #these take care of themselves/are broken
 processDomains = {'en.m.wikipedia.org'} #domain whitelist
-ignoreSubreddits = set(['latterdaysaints', 'politics','WTF'])
+ignoreSubreddits = set([u'latterdaysaints', u'politics',u'WTF'])
 processedPosts = set()
 
 feedbackURL = "[How am I doing?](http://www.reddit.com/message/compose/?to=untouchedURL&amp;subject=untouchedURL%20feedback)" 
@@ -36,7 +36,7 @@ def post_comment(post, commentTxt, ignoreSubreddits):
         warnings.warn("Comment Failed: %s @ %s in subreddit %s"%(commentTxt,post.permalink,post.subreddit))
         if str(e) == '403 Client Error: Forbidden':
             print '/r/',post.subreddit,' has banned me.'
-            ignoreSubreddits.add(post.subreddit)
+            ignoreSubreddits.add(post.subreddit.display_name)
         return False
 
 
@@ -48,7 +48,7 @@ def check_post(post, ignoreDomains, ignoreSubreddits, processedPosts):
         return False
     if post.is_self:
         return False
-    if post.subreddit in ignoreSubreddits:
+    if post.subreddit.display_name in ignoreSubreddits:
         return False
     if post.domain in ignoreDomains:
         return False
@@ -108,7 +108,6 @@ while running:
                             #print " -:  ",post.permalink
                             #print " -:  ",post.url
                             #print " -:  ",newlink
-                            #print 
                             post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
  
     time.sleep(15)
