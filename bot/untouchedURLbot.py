@@ -112,7 +112,8 @@ while running:
  
     time.sleep(15)
     runCount += 1
-    if runCount == 600: 
+    if runCount == 5760: 
+        sleep(90) #sleep: to avoid repeats at the expense of missing some.
         runCount = 0
         processedPosts = set()
         mail = r.get_unread()
