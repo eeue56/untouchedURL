@@ -16,9 +16,9 @@ r.login(usr,pw)
 
 touchHint = {'.m.':'.','//m.':'//','/.compact':'/','//mobile.':'//','//touch.':'//'} #search terms and translations
 
-ignoreDomains = {'mlb.com','m.memegen.com','m.braves.mlb.com','m.imgur.com','m.espn.go.com', 'm.mlb.com', 'm.youtube.com', 'm.politico.com', 'm.wpbf.com','m.huffpost.com','m.bleacherreport.com','m.btownthings.com','m.bbc.com', 'mobile.gungho.jp'} #these take care of themselves/are broken
+ignoreDomains = {'mlb.com','m.memegen.com','m.braves.mlb.com','m.imgur.com','m.espn.go.com', 'm.mlb.com', 'm.youtube.com', 'm.politico.com', 'm.wpbf.com','m.huffpost.com','m.bleacherreport.com','m.btownthings.com','m.bbc.com', 'mobile.gungho.jp','m.vice.com'} #these take care of themselves/are broken
 processDomains = {'en.m.wikipedia.org'} #domain whitelist
-ignoreSubreddits = set([u'latterdaysaints', u'politics',u'WTF',u'gats'])
+ignoreSubreddits = set([u'latterdaysaints', u'politics',u'WTF',u'gats',u'NBA'])
 processedPosts = set()
 
 feedbackURL = "[How am I doing?](http://www.reddit.com/message/compose/?to=untouchedURL&amp;subject=untouchedURL%20feedback)" 
