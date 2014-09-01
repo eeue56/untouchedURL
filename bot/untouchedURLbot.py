@@ -6,7 +6,7 @@ import requests
 import os
 #setup
 
-usrAgnt = 'untouchedURL bot 7.13.2014 checks new posts for mobile links | hopefully running on Heroku'
+usrAgnt = 'untouchedURL bot deployed 9.1.2014 checks new posts for mobile links | running on Heroku'
 usr = 'untouchedURL' 
 pw = os.environ['botPW'] #password
 maker = os.environ['MAKER'] #reddit account to pass feedback to
@@ -41,6 +41,11 @@ def get_last_redirect(url_head): #follows redirects, returns last requests.respo
         pass
     return last_redirect
     
+
+def get_mobile_url(mobile_url):
+    mobile_url_head = session.head(mobile_url)
+    last_redirect = get_last_redirect(mobile_url_head)
+    return last_redirect.url
 
 #extracomment
 #posts comment.
@@ -133,17 +138,19 @@ while running:
         if check_post(post,ignoreDomains,ignoreSubreddits,processedPosts):
             url = post.url.lower()
             processedPosts.add(post.id)
-            if any(hint in url for hint in touchHint):
-                for hint, replacement in touchHint.items():
-                    if hint in url:
-                        newlink = post.url.replace(hint,replacement)
-                if check_domain(newlink,post.domain,ignoreDomains,processDomains):
-                    comments_posted +=1
-                    post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
+            if any(hint in url for hint in touchHint): #checks if mobile URL
+                url = get_mobile_url(url) #checks for auto-redirect from mobile URL
+                if any(hint in url for hint in touchHint): #replaces hints, checks new url, posts comment.
+                    for hint, replacement in touchHint.items():
+                        if hint in url:
+                            newlink = post.url.replace(hint,replacement)
+                    if check_domain(newlink,post.domain,ignoreDomains,processDomains):
+                        comments_posted +=1
+                        post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
 
     time.sleep(15)
     runCount += 1
-    if runCount == 5760: 
+    if runCount == 1440: 
         sleep(90) #sleep: to avoid repeats at the expense of missing some.
         runCount = 0
         processedPosts = set()
