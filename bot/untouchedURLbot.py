@@ -80,7 +80,7 @@ def check_domain(newlink,domain,ignoreDomains,processDomains):
         return True
     else:
         try:
-            url_head = session.head(newlink, headers = request_headers)
+            url_head = session.head(newlink)
             status = url_head.status_code
             if status == 404:
                 ignoreDomains.add(domain)
@@ -111,7 +111,7 @@ def check_domain(newlink,domain,ignoreDomains,processDomains):
 
 running = True
 runCount = 0
-
+comments_posted = 0
 
 #bot:
 while running:
@@ -127,12 +127,9 @@ while running:
                 for hint, replacement in touchHint.items():
                     if hint in url:
                         newlink = post.url.replace(hint,replacement)
-                    if check_domain(newlink,post.domain,ignoreDomains,processDomains):
-                            #print post.title, ": "
-                            #print " -:  ",post.permalink
-                            #print " -:  ",post.url
-                            #print " -:  ",newlink
-                        post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
+                if check_domain(newlink,post.domain,ignoreDomains,processDomains):
+                    comments_posted +=1
+                    post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
  
     time.sleep(15)
     runCount += 1
@@ -144,6 +141,8 @@ while running:
         print "processDomains: ", processDomains
         print "ignoreDomains: ", ignoreDomains
         print "ignoreSubreddits: ", ignoreSubreddits
+        print "comments posted: ",comments_posted
+        comments_posted = 0
         for m in mail:
             if m.subreddit == None:
                 if m.subject == feedbackSubject:
