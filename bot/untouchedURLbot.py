@@ -41,7 +41,7 @@ def get_last_redirect(url_head): #follows redirects, returns last requests.respo
         pass
     return last_redirect
     
-    
+
 #extracomment
 #posts comment.
 def post_comment(post, commentTxt, ignoreSubreddits):
@@ -73,7 +73,11 @@ def check_post(post, ignoreDomains, ignoreSubreddits, processedPosts):
     else:
         return True
         
-#requests module found at: http://stackoverflow.com/questions/1140661/python-get-http-response-code-from-a-url        
+#requests module found at: http://stackoverflow.com/questions/1140661/python-get-http-response-code-from-a-url   
+
+
+
+     
 #Checks domain to see if it is in processDomains, if not, checks to see if fix returns 404. If it does, adds to ignoreDomains, else adds to processDomains.
 def check_domain(newlink,domain,ignoreDomains,processDomains):
     if domain in processDomains:
@@ -98,7 +102,7 @@ def check_domain(newlink,domain,ignoreDomains,processDomains):
                     return True
                 else:
                     ignoreDomains.add(domain)
-                    return false
+                    return False
             if status == 200:
                 processDomains.add(domain)
                 return True
@@ -107,11 +111,17 @@ def check_domain(newlink,domain,ignoreDomains,processDomains):
         except requests.ConnectionError:
             print "failed to connect"
             return False
-        
+
+
+
+####TODO: check_domain to check the mobile URL for redirect to non-mobile site. Pass "post" instead of "post.domain"
+
 
 running = True
 runCount = 0
 comments_posted = 0
+
+
 
 #bot:
 while running:
@@ -130,7 +140,7 @@ while running:
                 if check_domain(newlink,post.domain,ignoreDomains,processDomains):
                     comments_posted +=1
                     post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
- 
+
     time.sleep(15)
     runCount += 1
     if runCount == 5760: 
