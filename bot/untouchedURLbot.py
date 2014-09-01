@@ -17,7 +17,8 @@ r.login(usr,pw)
 
 #sets request user agent to desktop sasfari, turns of cache-ing.
 request_headers = {'User-agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.78.2 (KHTML, like Gecko) Version/7.0.6 Safari/537.78.2','Cache-Control': 'no-cache'}
-session = requests.Session(headers = request_headers)
+session = requests.Session()
+session.headers = request_headers
 
 touchHint = {'.m.':'.','//m.':'//','/.compact':'/','//mobile.':'//','//touch.':'//'} #search terms and translations
 
@@ -79,7 +80,7 @@ def check_domain(newlink,domain,ignoreDomains,processDomains):
         return True
     else:
         try:
-            url_head = session.head(newlink)
+            url_head = session.head(newlink, headers = request_headers)
             status = url_head.status_code
             if status == 404:
                 ignoreDomains.add(domain)
