@@ -131,10 +131,12 @@ comments_posted = 0
 #bot:
 while running:
 #newPosts = r.get_new(limit=100)
+    print "getting posts..."
     newPosts = r.get_subreddit('all').get_new(limit = 100)
-    print "Scanning..."
+    print "Scanning posts..."
 #newPosts = r.get_subreddit('todayilearned').get_new(limit=1000)
     for post in newPosts:
+        print "post ID: ", post.id
         if check_post(post,ignoreDomains,ignoreSubreddits,processedPosts):
             url = post.url.lower()
             processedPosts.add(post.id)
