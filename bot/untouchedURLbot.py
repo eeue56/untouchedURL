@@ -13,8 +13,9 @@ pw = os.environ['botPW'] #password
 maker = os.environ['MAKER'] #reddit account to pass feedback to
 
 
-logged_in = 0
 
+#tries logging in every 30 seconds until success. 
+logged_in = 0
 while logged_in == 0:
     try:
         r = praw.Reddit(usrAgnt) 
@@ -23,7 +24,7 @@ while logged_in == 0:
     except Exception as e: ##if exception not other, find out what kind
         print '!!!!!!LOG IN EXCEPTION!!!!!!'
         print(type(e))
-        sleep(30)
+        time.sleep(30)
         
 
 
