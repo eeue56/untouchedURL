@@ -151,9 +151,9 @@ while running:
                         if check_domain(newlink,post.domain,ignoreDomains,processDomains):
                             comments_posted +=1
                             post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " ^| "+feedbackURL),ignoreSubreddits)
-    except socket.timeout:
-        print '!!!!Timed out.'
-        print socket.timeout
+    except Other:
+        print '!!!!Timed out.???'
+        print Other
     time.sleep(15)
     runCount += 1
     if runCount == 1440: 
