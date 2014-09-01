@@ -67,7 +67,7 @@ def post_comment(post, commentTxt, ignoreSubreddits):
         a = post.add_comment(commentTxt)
         return True
     except Exception as e:
-        warn_string = "Comment Failed: %s @ %s in subreddit %s" % (commentTxt, post.permalink, post.subreddit)
+        warn_string = "Comment Failed: %s @ %s in subreddit %s. Exception: %s" % (commentTxt, post.permalink, post.subreddit, str(e))
         warnings.warn(warn_string)
         if str(e) == '403 Client Error: Forbidden':
             print '/r/',post.subreddit,' has banned me.'
