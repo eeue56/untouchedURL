@@ -136,7 +136,6 @@ while running:
     print "Scanning posts..."
 #newPosts = r.get_subreddit('todayilearned').get_new(limit=1000)
     for post in newPosts:
-        print "post ID: ", post.id
         if check_post(post,ignoreDomains,ignoreSubreddits,processedPosts):
             url = post.url.lower()
             processedPosts.add(post.id)
