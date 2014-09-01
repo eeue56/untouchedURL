@@ -151,12 +151,12 @@ while running:
                         if check_domain(newlink,post.domain,ignoreDomains,processDomains):
                             comments_posted +=1
                             post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " ^| "+feedbackURL),ignoreSubreddits)
-    except socket.timeout as sock_time:
-        print '!!!!TIME.OUT'
-        print sock_time
-    except Other as other:
-        print '!!!!Timed out.???'
-        print other
+    # except socket.timeout as sock_time:
+    #     print '!!!!TIME.OUT'
+    #     print sock_time
+    # except Other as other:
+    #     print '!!!!Timed out.???'
+    #     print other
     except Exception as e: ##if exception not other, find out what kind
         print '!!!!!!EXCEPTION!!!!!!'
         print(type(e))
