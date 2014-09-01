@@ -14,6 +14,11 @@ maker = os.environ['MAKER'] #reddit account to pass feedback to
 r = praw.Reddit(usrAgnt) 
 r.login(usr,pw)
 
+
+#sets request user agent to desktop sasfari, turns of cache-ing.
+request_headers = {'User-agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.78.2 (KHTML, like Gecko) Version/7.0.6 Safari/537.78.2','Cache-Control': 'no-cache'}
+session = requests.Session(headers = request_headers)
+
 touchHint = {'.m.':'.','//m.':'//','/.compact':'/','//mobile.':'//','//touch.':'//'} #search terms and translations
 
 ignoreDomains = {'mlb.com','m.memegen.com','m.braves.mlb.com','m.imgur.com','m.espn.go.com', 'm.mlb.com', 'm.youtube.com', 'm.politico.com', 'm.wpbf.com','m.huffpost.com','m.bleacherreport.com','m.btownthings.com','m.bbc.com', 'mobile.gungho.jp','m.vice.com','m.eet.com'} #these take care of themselves/are broken
@@ -26,6 +31,16 @@ feedbackSubject = u'untouchedURL feedback'
 sourcecodeURL = "[Sourcecode](https://github.com/Kharms/untouchedURL)"
 
 
+
+        
+def get_last_redirect(url_head): #follows redirects, returns last requests.response object
+    redirects = session.resolve_redirects(url_head,url_head.request)
+    last_redirect = url_head
+    for last_redirect in redirects:
+        pass
+    return last_redirect
+    
+    
 #extracomment
 #posts comment.
 def post_comment(post, commentTxt, ignoreSubreddits):
@@ -64,7 +79,8 @@ def check_domain(newlink,domain,ignoreDomains,processDomains):
         return True
     else:
         try:
-            status = requests.head(newlink).status_code
+            url_head = session.head(newlink)
+            status = url_head.status_code
             if status == 404:
                 ignoreDomains.add(domain)
                 return False
@@ -72,9 +88,16 @@ def check_domain(newlink,domain,ignoreDomains,processDomains):
                 ignoreDomains.add(domain)
                 return False
             if (status > 299) and (status<400):
-                print "Check%s: "%(status)+newlink
-                processDomains.add(domain)
-                return True
+                last_redirect = get_last_redirect(url_head)
+                #if last_redirect.status_code = 404:
+                    #ignoreDomains.add(domain)
+                    #return false
+                if last_redirect.status_code = 200:
+                    processDomains.add(domain)
+                    return True
+                else:
+                    ignoreDomains.add(domain)
+                    return false
             if status == 200:
                 processDomains.add(domain)
                 return True
