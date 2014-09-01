@@ -6,6 +6,7 @@ import requests
 import os
 #setup
 
+
 usrAgnt = 'untouchedURL bot deployed 9.1.2014 checks new posts for mobile links | running on Heroku'
 usr = 'untouchedURL' 
 pw = os.environ['botPW'] #password
@@ -13,6 +14,7 @@ maker = os.environ['MAKER'] #reddit account to pass feedback to
 
 r = praw.Reddit(usrAgnt) 
 r.login(usr,pw)
+
 
 
 #sets request user agent to desktop sasfari, turns of cache-ing.
@@ -27,9 +29,9 @@ processDomains = {'en.m.wikipedia.org'} #domain whitelist
 ignoreSubreddits = set([u'latterdaysaints', u'politics',u'WTF',u'gats',u'NBA'])
 processedPosts = set()
 
-feedbackURL = "[How am I doing?](http://www.reddit.com/message/compose/?to=untouchedURL&amp;subject=untouchedURL%20feedback)" 
+feedbackURL = "^[Feedback?](http://www.reddit.com/message/compose/?to=untouchedURL&amp;subject=untouchedURL%20feedback)" 
 feedbackSubject = u'untouchedURL feedback' 
-sourcecodeURL = "[Sourcecode](https://github.com/Kharms/untouchedURL)"
+sourcecodeURL = "^[Sourcecode](https://github.com/Kharms/untouchedURL)"
 
 
 
@@ -148,9 +150,9 @@ while running:
                                 newlink = post.url.replace(hint,replacement)
                         if check_domain(newlink,post.domain,ignoreDomains,processDomains):
                             comments_posted +=1
-                            post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
+                            post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " ^| "+feedbackURL),ignoreSubreddits)
     except socket.timeout:
-        print 'Timed out.'
+        print '!!!!Timed out.'
         print socket.timeout
     time.sleep(15)
     runCount += 1
