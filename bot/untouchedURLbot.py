@@ -92,7 +92,7 @@ def check_domain(newlink,domain,ignoreDomains,processDomains):
                 #if last_redirect.status_code = 404:
                     #ignoreDomains.add(domain)
                     #return false
-                if last_redirect.status_code = 200:
+                if last_redirect.status_code == 200:
                     processDomains.add(domain)
                     return True
                 else:
