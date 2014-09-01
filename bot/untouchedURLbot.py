@@ -135,20 +135,23 @@ while running:
     newPosts = r.get_subreddit('all').get_new(limit = 100)
     print "Scanning posts..."
 #newPosts = r.get_subreddit('todayilearned').get_new(limit=1000)
-    for post in newPosts:
-        if check_post(post,ignoreDomains,ignoreSubreddits,processedPosts):
-            url = post.url.lower()
-            processedPosts.add(post.id)
-            if any(hint in url for hint in touchHint): #checks if mobile URL
-                url = get_mobile_url(url) #checks for auto-redirect from mobile URL
-                if any(hint in url for hint in touchHint): #replaces hints, checks new url, posts comment.
-                    for hint, replacement in touchHint.items():
-                        if hint in url:
-                            newlink = post.url.replace(hint,replacement)
-                    if check_domain(newlink,post.domain,ignoreDomains,processDomains):
-                        comments_posted +=1
-                        post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
-
+    try:
+        for post in newPosts:
+            if check_post(post,ignoreDomains,ignoreSubreddits,processedPosts):
+                url = post.url.lower()
+                processedPosts.add(post.id)
+                if any(hint in url for hint in touchHint): #checks if mobile URL
+                    url = get_mobile_url(url) #checks for auto-redirect from mobile URL
+                    if any(hint in url for hint in touchHint): #replaces hints, checks new url, posts comment.
+                        for hint, replacement in touchHint.items():
+                            if hint in url:
+                                newlink = post.url.replace(hint,replacement)
+                        if check_domain(newlink,post.domain,ignoreDomains,processDomains):
+                            comments_posted +=1
+                            post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
+    except socket.timeout:
+        print 'Timed out.'
+        print socket.timeout
     time.sleep(15)
     runCount += 1
     if runCount == 1440: 
