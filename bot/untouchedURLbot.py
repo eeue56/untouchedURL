@@ -67,7 +67,8 @@ def post_comment(post, commentTxt, ignoreSubreddits):
         a = post.add_comment(commentTxt)
         return True
     except Exception as e:
-        warnings.warn("Comment Failed: %s @ %s in subreddit %s"%(commentTxt,post.permalink,post.subreddit))
+        warn_string = "Comment Failed: %s @ %s in subreddit %s" % (commentTxt, post.permalink, post.subreddit)
+        warnings.warn(warn_string)
         if str(e) == '403 Client Error: Forbidden':
             print '/r/',post.subreddit,' has banned me.'
             ignoreSubreddits.add(post.subreddit.display_name)
@@ -160,8 +161,8 @@ while running:
                             if hint in url:
                                 newlink = post.url.replace(hint,replacement)
                         if check_domain(newlink,post.domain,ignoreDomains,processDomains):
-                            comments_posted +=1
-                            post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " ^| "+feedbackURL),ignoreSubreddits)
+                            if post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " ^| "+feedbackURL),ignoreSubreddits):
+                                comments_posted +=1
     # except socket.timeout as sock_time:
     #     print '!!!!TIME.OUT'
     #     print sock_time
