@@ -126,12 +126,12 @@ while running:
                 for hint, replacement in touchHint.items():
                     if hint in url:
                         newlink = post.url.replace(hint,replacement)
-                        if check_domain(newlink,post.domain,ignoreDomains,processDomains):
+                    if check_domain(newlink,post.domain,ignoreDomains,processDomains):
                             #print post.title, ": "
                             #print " -:  ",post.permalink
                             #print " -:  ",post.url
                             #print " -:  ",newlink
-                            post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
+                        post_comment(post,("Here is a non-mobile link: " + newlink + "\n \n" + sourcecodeURL + " | "+feedbackURL),ignoreSubreddits)
  
     time.sleep(15)
     runCount += 1
